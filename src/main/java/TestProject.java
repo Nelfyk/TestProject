@@ -3,12 +3,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class TestProject {
-    static String DB_CONNECTION = "jdbc:postgresql://hostname:port/dbname";
-    static String DB_USER = "username";
-    static String DB_PASSWORD = "password";
+    final static String DB_CONNECTION = "jdbc:postgresql://localhost:5432/shop";
+    final static String DB_USER = "postgres";
+    final static String DB_PASSWORD = "psql";
 
     public static void main(String[] args){
-
+        try {
+            Connection dbConnection = getDBConnection();
+            System.out.println(dbConnection.getTransactionIsolation());
+            dbConnection.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
     // Создание подключение к БД
