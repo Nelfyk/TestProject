@@ -1,38 +1,22 @@
+import util.ConnectionManager;
+import util.Search;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class TestProject {
-    final static String DB_CONNECTION = "jdbc:postgresql://localhost:5432/shop";
-    final static String DB_USER = "postgres";
-    final static String DB_PASSWORD = "psql";
-
     public static void main(String[] args){
         try {
-            Connection dbConnection = getDBConnection();
+            Connection dbConnection = ConnectionManager.getDBConnection();
             System.out.println(dbConnection.getTransactionIsolation());
             dbConnection.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
-    }
+        System.out.println("------------------");
+        Search.search();
 
-    // Создание подключение к БД
-    private static Connection getDBConnection(){
-        Connection dbConnection = null;
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch(ClassNotFoundException e){
-            System.out.println("MySQL JDBC Driver not found!");
-            e.printStackTrace();
-        }
-        try{
-            dbConnection = DriverManager.getConnection(DB_CONNECTION,DB_USER,DB_PASSWORD);
-            return dbConnection;
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return dbConnection;
+
     }
 
 }
