@@ -11,7 +11,6 @@ public class JsonReader {
         criteriasList = new ArrayList<>();
         JsonSimpleParser.parse(1); // 1 - search, 2 - stat
 
-        System.out.println("\n");
         System.out.println(criteriasList);
 
         /*
