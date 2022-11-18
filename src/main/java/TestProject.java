@@ -1,25 +1,21 @@
-import util.ConnectionManager;
 import util.JsonReader;
 import util.JsonWriter;
+import util.RequestHandler;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TestProject {
     public static void main(String[] args){
-        try {
-            Connection dbConnection = ConnectionManager.getDBConnection();
-            System.out.println(dbConnection.getTransactionIsolation());
-            dbConnection.close();
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
+        RequestHandler.start();
         System.out.println("------------------");
-
-        JsonReader.search();
+        JsonReader.read();
         JsonWriter.write();
 
-
+        try {
+            RequestHandler.dbConnection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

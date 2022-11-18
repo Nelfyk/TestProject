@@ -7,7 +7,7 @@ public class JsonReader {
     public static List<Object> criteriasList;
     private JsonReader(){
     }
-    public static void search(){
+    public static void read(){
         criteriasList = new ArrayList<>();
         JsonSimpleParser.parse(1); // 1 - search, 2 - stat
 

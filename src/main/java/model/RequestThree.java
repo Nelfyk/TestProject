@@ -3,11 +3,11 @@ package model;
 // 3.	Минимальная и максимальная стоимость всех покупок — поиск покупателей,
 //      у которых общая стоимость всех покупок за всё время попадает в интервал
 
-public class CriterionThree {
+public class RequestThree {
     private int minExpenses;
     private int maxExpenses;
 
-    public CriterionThree(int minExpenses, int maxExpenses) {
+    public RequestThree(int minExpenses, int maxExpenses) {
         this.minExpenses = minExpenses;
         this.maxExpenses = maxExpenses;
     }

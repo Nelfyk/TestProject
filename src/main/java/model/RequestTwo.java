@@ -2,11 +2,11 @@ package model;
 
 // 2.	Название товара и число раз — поиск покупателей, купивших этот товар не менее, чем указанное число раз
 
-public class CriterionTwo {
+public class RequestTwo {
     private String productName;
     private int minTimes;
 
-    public CriterionTwo(String productName, int minTimes) {
+    public RequestTwo(String productName, int minTimes) {
         this.productName = productName;
         this.minTimes = minTimes;
     }

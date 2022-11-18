@@ -3,10 +3,10 @@ package model;
 // 4.	Число пассивных покупателей — поиск покупателей, купивших меньше всего товаров.
 //      Возвращается не более, чем указанное число покупателей.
 
-public class CriterionFour {
+public class RequestFour {
     private int badCustomers;
 
-    public CriterionFour(int badCustomers) {
+    public RequestFour(int badCustomers) {
         this.badCustomers = badCustomers;
     }
 

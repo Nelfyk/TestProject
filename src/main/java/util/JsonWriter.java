@@ -1,12 +1,13 @@
 package util;
 
-import model.CriterionOne;
+import model.RequestOne;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class JsonWriter {
 
@@ -21,18 +22,24 @@ public class JsonWriter {
         JSONObject criterion = new JSONObject(); // Критерий из запроса
         JSONObject criteriaArr = new JSONObject();  // {"lastName": "Иванов"}
         JSONArray results = new JSONArray();
-        JSONObject data = new JSONObject();
+        JSONObject data;
         for(int i=0;i<JsonReader.criteriasList.size();i++){
-            if (JsonReader.criteriasList.get(i).getClass().equals(CriterionOne.class)){
+            if (JsonReader.criteriasList.get(i).getClass().equals(RequestOne.class)){
                 // from json input
-                criteriaArr.put("lastName",((CriterionOne)JsonReader.criteriasList.get(i)).getLastName());
+                String lastName = ((RequestOne)JsonReader.criteriasList.get(i)).getLastName();
+                criteriaArr.put("lastName",lastName);
                 criterion.put("criteria",criteriaArr); // "criteria": {"lastName": "Иванов"}
-
+                List<RequestOne> requestList = RequestHandler.requestOne(lastName);
+                System.out.println(requestList);
                 // from dbShop
-                data.put("lastName","Иванов");
-                data.put("firstName","Антон");
-                results.add(data);
-
+                for(int j=0;j<requestList.size();j++) {
+                    data = new JSONObject();
+                    data.put("lastName", requestList.get(j).getLastName());
+                    data.put("firstName", requestList.get(j).getFirstName());
+                    System.out.println(requestList.get(j).getLastName() + " " + requestList.get(j).getFirstName());
+                    results.add(data);
+                }
+                
                 criterion.put("results",results);
                 customersList.add(criterion); // add full obj criterion
             }

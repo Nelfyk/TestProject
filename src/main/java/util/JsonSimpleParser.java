@@ -41,27 +41,26 @@ public class JsonSimpleParser {
 
         for(int i=0;i<criteriasArray.size();i++){
             criteriasData = (JSONObject) criteriasArray.get(i);
-            System.out.println(criteriasData.keySet());
 
             switch(criteriasData.keySet().toString()){
                 case "[lastName]": {
-                    JsonReader.criteriasList.add(new CriterionOne(criteriasData.get("lastName").toString()));
+                    JsonReader.criteriasList.add(new RequestOne(criteriasData.get("lastName").toString()));
                     break;
                 }
                 case "[minTimes, productName]": {
                     int minTimes = Integer.parseInt(criteriasData.get("minTimes").toString());
-                    JsonReader.criteriasList.add(new CriterionTwo(criteriasData.get("productName").toString(),minTimes));
+                    JsonReader.criteriasList.add(new RequestTwo(criteriasData.get("productName").toString(),minTimes));
                     break;
                 }
                 case "[minExpenses, maxExpenses]": {
                     int minExpenses = Integer.parseInt(criteriasData.get("minExpenses").toString());
                     int maxExpenses = Integer.parseInt(criteriasData.get("maxExpenses").toString());
-                    JsonReader.criteriasList.add(new CriterionThree(minExpenses,maxExpenses));
+                    JsonReader.criteriasList.add(new RequestThree(minExpenses,maxExpenses));
                     break;
                 }
                 case "[badCustomers]": {
                     int badCustomers = Integer.parseInt(criteriasData.get("badCustomers").toString());
-                    JsonReader.criteriasList.add(new CriterionFour(badCustomers));
+                    JsonReader.criteriasList.add(new RequestFour(badCustomers));
                     break;
                 }
             }
