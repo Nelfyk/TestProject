@@ -6,13 +6,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class JsonSimpleParser {
 
     private JsonSimpleParser(){
     }
 
-    public static void parse(){
+    public static void parse(int operation){ // 1 - search, 2 - stat
 
         JSONParser parser = new JSONParser();
 
@@ -20,51 +23,63 @@ public class JsonSimpleParser {
 
             JSONObject rootJsonObject = (JSONObject) parser.parse(reader); // get root JSON file
 
-            JSONArray criteriasArray = (JSONArray) rootJsonObject.get("criterias");
-            JSONObject criteriasData;
-
-
-//            System.out.println(criteriasArray.toJSONString());
-            for(int i=0;i<criteriasArray.size();i++){
-                criteriasData = (JSONObject) criteriasArray.get(i);
-                System.out.println(criteriasData.keySet().toString());
-
-
-//                if (criteriasData.keySet().toString().equals("[lastName]")) {
-//                    Search.criteriasList.add(new CriterionOne(criteriasData.values().toString().replace("[", "")
-//                            .replace("]", "")));
-//                } else if(criteriasData.keySet().toString().equals("[minTimes]")) {
-//                    System.out.println("shit");
-//                }
-
-
-                switch(criteriasData.keySet().toString()){
-                    case "[lastName]": {
-                        Search.criteriasList.add(new CriterionOne(criteriasData.get("lastName").toString()));
-                        break;
-                    }
-                    case "[minTimes, productName]": {
-                        int minTimes = Integer.parseInt(criteriasData.get("minTimes").toString());
-                        Search.criteriasList.add(new CriterionTwo(criteriasData.get("productName").toString(),minTimes));
-                        break;
-                    }
-                    case "[minExpenses, maxExpenses]": {
-                        int minExpenses = Integer.parseInt(criteriasData.get("minExpenses").toString());
-                        int maxExpenses = Integer.parseInt(criteriasData.get("maxExpenses").toString());
-                        Search.criteriasList.add(new CriterionThree(minExpenses,maxExpenses));
-                        break;
-                    }
-                    case "[badCustomers]": {
-                        int badCustomers = Integer.parseInt(criteriasData.get("badCustomers").toString());
-                        Search.criteriasList.add(new CriterionFour(badCustomers));
-                        break;
-                    }
-                }
-
+            // selecting an operation
+            if (operation == 1){
+                parseSearch(rootJsonObject);
+            } else {
+                parseStat(rootJsonObject);
             }
 
         } catch (Exception e){
-            System.out.println("Parsing error " + e.toString());
+            System.out.println("File error: " + e.toString());
+        }
+
+    }
+    private static void parseSearch(JSONObject rootJsonObject){
+        JSONArray criteriasArray = (JSONArray) rootJsonObject.get("criterias");
+        JSONObject criteriasData;
+
+        for(int i=0;i<criteriasArray.size();i++){
+            criteriasData = (JSONObject) criteriasArray.get(i);
+            System.out.println(criteriasData.keySet());
+
+            switch(criteriasData.keySet().toString()){
+                case "[lastName]": {
+                    Search.criteriasList.add(new CriterionOne(criteriasData.get("lastName").toString()));
+                    break;
+                }
+                case "[minTimes, productName]": {
+                    int minTimes = Integer.parseInt(criteriasData.get("minTimes").toString());
+                    Search.criteriasList.add(new CriterionTwo(criteriasData.get("productName").toString(),minTimes));
+                    break;
+                }
+                case "[minExpenses, maxExpenses]": {
+                    int minExpenses = Integer.parseInt(criteriasData.get("minExpenses").toString());
+                    int maxExpenses = Integer.parseInt(criteriasData.get("maxExpenses").toString());
+                    Search.criteriasList.add(new CriterionThree(minExpenses,maxExpenses));
+                    break;
+                }
+                case "[badCustomers]": {
+                    int badCustomers = Integer.parseInt(criteriasData.get("badCustomers").toString());
+                    Search.criteriasList.add(new CriterionFour(badCustomers));
+                    break;
+                }
+            }
+        }
+    }
+    private static void parseStat(JSONObject rootJsonObject){
+        try {
+            String startDate = rootJsonObject.get("startDate").toString();
+            String endDate = rootJsonObject.get("endDate").toString();
+            // date format checker
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            df.setLenient(false);
+            df.parse(startDate);
+            df.parse(endDate);
+
+            Search.criteriasList.add(new Stat(startDate,endDate));
+        } catch (ParseException e) {
+            System.out.println("Date format error: " + e.toString());
         }
 
     }

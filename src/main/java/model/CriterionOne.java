@@ -3,11 +3,11 @@ package model;
 // 1.	Фамилия — поиск покупателей с этой фамилией
 
 public class CriterionOne{
+    private String lastName;
+
     public CriterionOne(String lastName) {
         this.lastName = lastName;
     }
-
-    private String lastName;
 
     public String getLastName() {
         return lastName;
