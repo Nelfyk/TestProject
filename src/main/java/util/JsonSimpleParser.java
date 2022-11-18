@@ -45,23 +45,23 @@ public class JsonSimpleParser {
 
             switch(criteriasData.keySet().toString()){
                 case "[lastName]": {
-                    Search.criteriasList.add(new CriterionOne(criteriasData.get("lastName").toString()));
+                    JsonReader.criteriasList.add(new CriterionOne(criteriasData.get("lastName").toString()));
                     break;
                 }
                 case "[minTimes, productName]": {
                     int minTimes = Integer.parseInt(criteriasData.get("minTimes").toString());
-                    Search.criteriasList.add(new CriterionTwo(criteriasData.get("productName").toString(),minTimes));
+                    JsonReader.criteriasList.add(new CriterionTwo(criteriasData.get("productName").toString(),minTimes));
                     break;
                 }
                 case "[minExpenses, maxExpenses]": {
                     int minExpenses = Integer.parseInt(criteriasData.get("minExpenses").toString());
                     int maxExpenses = Integer.parseInt(criteriasData.get("maxExpenses").toString());
-                    Search.criteriasList.add(new CriterionThree(minExpenses,maxExpenses));
+                    JsonReader.criteriasList.add(new CriterionThree(minExpenses,maxExpenses));
                     break;
                 }
                 case "[badCustomers]": {
                     int badCustomers = Integer.parseInt(criteriasData.get("badCustomers").toString());
-                    Search.criteriasList.add(new CriterionFour(badCustomers));
+                    JsonReader.criteriasList.add(new CriterionFour(badCustomers));
                     break;
                 }
             }
@@ -77,7 +77,7 @@ public class JsonSimpleParser {
             df.parse(startDate);
             df.parse(endDate);
 
-            Search.criteriasList.add(new Stat(startDate,endDate));
+            JsonReader.criteriasList.add(new Stat(startDate,endDate));
         } catch (ParseException e) {
             System.out.println("Date format error: " + e.toString());
         }

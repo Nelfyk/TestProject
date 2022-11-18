@@ -3,9 +3,9 @@ package util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Search {
+public class JsonReader {
     public static List<Object> criteriasList;
-    private Search(){
+    private JsonReader(){
     }
     public static void search(){
         criteriasList = new ArrayList<>();
