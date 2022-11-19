@@ -9,8 +9,10 @@ public class JsonReader {
     }
     public static void read(){
         criteriaList = new ArrayList<>();
-        JsonSimpleParser.parse(1); // 1 - search, 2 - stat
-
+        JsonSimpleParser.parse(2); // 1 - search, 2 - stat
+        if(true){
+            StatHandler.getStatData();
+        }
         System.out.println(criteriaList);
 
         /*

@@ -80,7 +80,7 @@ public class JsonWriter {
                 int badCustomers = ((RequestFour)JsonReader.criteriaList.get(i)).getBadCustomers();
                 criteriaArr.put("badCustomers",badCustomers);
                 criterion.put("crtiteria",criteriaArr); // "criteria": {"badCustomers": 3}
-                // получаем лист данных из запроса #3
+                // получаем лист данных из запроса #4
                 List<RequestOne> requestList = RequestHandler.requestFour(badCustomers);
                 // Извлечение данных DB из списка и добавление в json
                 extractDataFromList(requestList);
