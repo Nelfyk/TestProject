@@ -44,23 +44,23 @@ public class JsonSimpleParser {
 
             switch(criteriasData.keySet().toString()){
                 case "[lastName]": {
-                    JsonReader.criteriasList.add(new RequestOne(criteriasData.get("lastName").toString()));
+                    JsonReader.criteriaList.add(new RequestOne(criteriasData.get("lastName").toString()));
                     break;
                 }
                 case "[minTimes, productName]": {
                     int minTimes = Integer.parseInt(criteriasData.get("minTimes").toString());
-                    JsonReader.criteriasList.add(new RequestTwo(criteriasData.get("productName").toString(),minTimes));
+                    JsonReader.criteriaList.add(new RequestTwo(criteriasData.get("productName").toString(),minTimes));
                     break;
                 }
                 case "[minExpenses, maxExpenses]": {
                     int minExpenses = Integer.parseInt(criteriasData.get("minExpenses").toString());
                     int maxExpenses = Integer.parseInt(criteriasData.get("maxExpenses").toString());
-                    JsonReader.criteriasList.add(new RequestThree(minExpenses,maxExpenses));
+                    JsonReader.criteriaList.add(new RequestThree(minExpenses,maxExpenses));
                     break;
                 }
                 case "[badCustomers]": {
                     int badCustomers = Integer.parseInt(criteriasData.get("badCustomers").toString());
-                    JsonReader.criteriasList.add(new RequestFour(badCustomers));
+                    JsonReader.criteriaList.add(new RequestFour(badCustomers));
                     break;
                 }
             }
@@ -76,7 +76,7 @@ public class JsonSimpleParser {
             df.parse(startDate);
             df.parse(endDate);
 
-            JsonReader.criteriasList.add(new Stat(startDate,endDate));
+            JsonReader.criteriaList.add(new Stat(startDate,endDate));
         } catch (ParseException e) {
             System.out.println("Date format error: " + e.toString());
         }

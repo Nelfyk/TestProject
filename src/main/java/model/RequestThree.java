@@ -20,11 +20,11 @@ public class RequestThree {
         this.minExpenses = minExpenses;
     }
 
-    public int getMxaExpenses() {
+    public int getMaxExpenses() {
         return maxExpenses;
     }
 
-    public void setMxaExpenses(int maxExpenses) {
+    public void setMaxExpenses(int maxExpenses) {
         this.maxExpenses = maxExpenses;
     }
 

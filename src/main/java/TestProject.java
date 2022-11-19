@@ -6,7 +6,6 @@ import util.RequestHandler;
 public class TestProject {
     public static void main(String[] args){
         RequestHandler.start();
-        System.out.println("------------------");
         JsonReader.read();
         JsonWriter.write();
 
