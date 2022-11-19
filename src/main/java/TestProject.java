@@ -1,8 +1,7 @@
+import util.ConnectionManager;
 import util.JsonReader;
 import util.JsonWriter;
 import util.RequestHandler;
-
-import java.sql.SQLException;
 
 public class TestProject {
     public static void main(String[] args){
@@ -11,11 +10,7 @@ public class TestProject {
         JsonReader.read();
         JsonWriter.write();
 
-        try {
-            RequestHandler.dbConnection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        ConnectionManager.closeConnection();
     }
 }
 

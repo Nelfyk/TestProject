@@ -23,6 +23,7 @@ public class JsonWriter {
         JSONObject criteriaArr = new JSONObject();  // {"lastName": "Иванов"}
         JSONArray results = new JSONArray();
         JSONObject data;
+
         for(int i=0;i<JsonReader.criteriasList.size();i++){
             if (JsonReader.criteriasList.get(i).getClass().equals(RequestOne.class)){
                 // from json input

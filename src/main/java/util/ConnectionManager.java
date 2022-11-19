@@ -19,4 +19,11 @@ public final class ConnectionManager {
             throw new RuntimeException(e);
         }
     }
+    public static void closeConnection(){
+        try {
+            RequestHandler.dbConnection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
