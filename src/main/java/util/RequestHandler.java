@@ -12,13 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RequestHandler {
-    public static Connection dbConnection;
+    private static Connection dbConnection;
 
     private RequestHandler() {
-    }
-
-    public static void start() {
-        dbConnection = ConnectionManager.getDBConnection();
     }
 
     // Collecting data from db to list
@@ -132,5 +128,9 @@ public class RequestHandler {
             e.printStackTrace();
         }
         return customerList;
+    }
+
+    public static void setDbConnection(Connection dbConnection) {
+        RequestHandler.dbConnection = dbConnection;
     }
 }

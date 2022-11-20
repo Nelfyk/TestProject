@@ -7,11 +7,9 @@ public class JsonReader {
     public static List<Object> criteriaList;
     private JsonReader(){
     }
-    public static void read(){
+    public static void read(String operation,String path){
         criteriaList = new ArrayList<>();
-        JsonSimpleParser.parse(2); // 1 - search, 2 - stat
-        System.out.println(criteriaList);
-
+        JsonSimpleParser.parse(operation,path);
     }
 
 }

@@ -37,11 +37,6 @@ public class Customer {
         return productList;
     }
 
-    public void addProductList(String productName,int price){
-        productList.add(new Product(productName,price));
-        totalExpenses+=price;
-    }
-
     @Override
     public String toString() {
         return "Customer{" +

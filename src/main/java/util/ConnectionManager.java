@@ -1,29 +1,56 @@
 package util;
 
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public final class ConnectionManager {
-    final static String DB_CONNECTION = "jdbc:postgresql://localhost:5432/shop";
-    final static String DB_USER = "postgres";
-    final static String DB_PASSWORD = "psql";
+    private static Connection dbConnection;
+    private static String DB_CONNECTION;
+    private static String DB_USER;
+    private static String DB_PASSWORD;
 
     private ConnectionManager(){
     }
 
+    public static void openConnection() {
+        getConfigIni();
+        dbConnection = ConnectionManager.getDBConnection();
+        RequestHandler.setDbConnection(dbConnection);
+    }
     public static Connection getDBConnection(){
         try{
             return DriverManager.getConnection(DB_CONNECTION,DB_USER,DB_PASSWORD);
         } catch(SQLException e){
-            throw new RuntimeException(e);
+            JsonWriter.writeError("PSQLException");
+            return null;
         }
     }
     public static void closeConnection(){
         try {
-            RequestHandler.dbConnection.close();
+            dbConnection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+    private static void getConfigIni(){
+        try (InputStream input = Files.newInputStream(Paths.get("Config.ini"))) {
+            Properties prop = new Properties();
+            // load a properties file
+            prop.load(input);
+            // get the property value
+            DB_CONNECTION = prop.getProperty("DB_CONNECTION");
+            DB_USER = prop.getProperty("DB_USER");
+            DB_PASSWORD = prop.getProperty("DB_PASSWORD");
+        } catch (IOException e) {
+            JsonWriter.writeError("config.ini file is missing");
         }
     }
 }

@@ -14,10 +14,6 @@ public class RequestFour {
         return badCustomers;
     }
 
-    public void setBadCustomers(int badCustomers) {
-        this.badCustomers = badCustomers;
-    }
-
     @Override
     public String toString() {
         return "CriterionFour{" +

@@ -15,23 +15,32 @@ public class JsonSimpleParser {
     private JsonSimpleParser(){
     }
 
-    public static void parse(int operation){ // 1 - search, 2 - stat
-
+    public static void parse(String operation,String path){
         JSONParser parser = new JSONParser();
-
-        try(FileReader reader = new FileReader("input.json")){
-
+        try(FileReader reader = new FileReader(path)){
             JSONObject rootJsonObject = (JSONObject) parser.parse(reader); // get root JSON file
 
-            // selecting an operation
-            if (operation == 1){
-                parseSearch(rootJsonObject);
-            } else {
-                parseStat(rootJsonObject);
+            switch(operation.toLowerCase()) {
+                case "search": {
+                    parseSearch(rootJsonObject);
+                    ;
+                    break;
+                }
+                case "stat": {
+                    parseStat(rootJsonObject);
+                    break;
+                }
+                default: {
+                    JsonWriter.writeError("operation");
+                    break;
+                }
             }
-
         } catch (Exception e){
-            System.out.println("File error: " + e.toString());
+            if(e.getClass().equals(java.io.FileNotFoundException.class)) {
+                JsonWriter.writeError("FileNotFoundException");
+            } else {
+                JsonWriter.writeError("jsonInput");
+            }
         }
 
     }
@@ -78,7 +87,7 @@ public class JsonSimpleParser {
 
             JsonReader.criteriaList.add(new Stat(startDate,endDate));
         } catch (ParseException e) {
-            System.out.println("Date format error: " + e.toString());
+            JsonWriter.writeError("dateError");
         }
 
     }

@@ -15,16 +15,8 @@ public class RequestTwo {
         return productName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
     public int getMinTimes() {
         return minTimes;
-    }
-
-    public void setMinTimes(int minTimes) {
-        this.minTimes = minTimes;
     }
 
     @Override
