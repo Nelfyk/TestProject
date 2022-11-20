@@ -1,0 +1,8 @@
+{
+	"criterias": [ 
+	    {"lastName": "Сахаров"},
+		{"productName": "Пиво Жигулевское", "minTimes": 3},
+	    {"minExpenses": 500, "maxExpenses": 1000},
+		{"badCustomers": 1}
+      ]
+}

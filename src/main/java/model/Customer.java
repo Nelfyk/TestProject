@@ -10,11 +10,11 @@ public class Customer {
     private List<Product> productList = new ArrayList<>();
     private int totalExpenses = 0;
 
-    public Customer(int id, String name, String productName,int price) {
+    public Customer(int id, String name, String productName, int price) {
         this.id = id;
         this.name = name;
-        productList.add(new Product(productName,price));
-        totalExpenses+=price;
+        productList.add(new Product(productName, price));
+        totalExpenses += price;
     }
 
     public int getId() {
@@ -46,6 +46,7 @@ public class Customer {
                 ", totalExpenses=" + totalExpenses +
                 '}';
     }
+
     // Сортировка листа по убыванаию totalExpenses
     public static final Comparator<Customer> COMPARE_BY_TOTAL_EXPENSES = new Comparator<Customer>() {
         @Override

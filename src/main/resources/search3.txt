@@ -1,0 +1,6 @@
+{
+	"criterias": [ 
+		{"productName": "Сыр", "minTimes": 2},
+		{"productName": "Папиросы", "minTimes": 1}
+      ]
+}

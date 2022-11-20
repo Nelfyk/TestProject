@@ -1,0 +1,15 @@
+Index: src/main/java/TestProject.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/TestProject.java b/src/main/java/TestProject.java
+--- a/src/main/java/TestProject.java	
++++ b/src/main/java/TestProject.java	
+@@ -20,4 +20,4 @@
+ }
+ 
+ //    javac Main.java
+-//    java Main arg0 arg1 arg2
+\ No newline at end of file
++//    java Main arg0 arg1 arg2

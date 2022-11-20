@@ -1,0 +1,7 @@
+{
+	"criterias": [ 
+		{"lastName": "Есенин"},
+		{"productName": "Пельмени Царские", "minTimes": 1},
+		{"productName": "Сметана", "minTimes": 1},
+      ]
+}

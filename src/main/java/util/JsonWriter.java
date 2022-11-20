@@ -20,16 +20,17 @@ public class JsonWriter {
     private static JSONObject data;
     private static String path;
 
-    private JsonWriter(){
+    private JsonWriter() {
     }
-    public static void write(String operation){
+
+    public static void write(String operation) {
 //        pathJson = path;
-        switch(operation.toLowerCase()){
-            case "search" : {
+        switch (operation.toLowerCase()) {
+            case "search": {
                 writeSearch(path);
                 break;
             }
-            case "stat" : {
+            case "stat": {
                 writeStatJson(path);
                 break;
             }
@@ -39,68 +40,69 @@ public class JsonWriter {
             }
         }
     }
-    public static void writeSearch(String path){
+
+    public static void writeSearch(String path) {
         root.put("type", "search"); // Тип результата
-        for(int i = 0; i<JsonReader.criteriaList.size(); i++){
+        for (int i = 0; i < JsonReader.criteriaList.size(); i++) {
             // if Request #1
-            if (JsonReader.criteriaList.get(i).getClass().equals(RequestOne.class)){
+            if (JsonReader.criteriaList.get(i).getClass().equals(RequestOne.class)) {
                 newJsonObjects();
                 // from json input
-                String lastName = ((RequestOne)JsonReader.criteriaList.get(i)).getLastName();
-                criteriaArr.put("lastName",lastName);
-                criterion.put("criteria",criteriaArr); // "criteria": {"lastName": "Иванов"}
+                String lastName = ((RequestOne) JsonReader.criteriaList.get(i)).getLastName();
+                criteriaArr.put("lastName", lastName);
+                criterion.put("criteria", criteriaArr); // "criteria": {"lastName": "Иванов"}
                 // получаем лист данных из запроса #1
                 List<RequestOne> requestList = RequestHandler.requestOne(lastName);
                 // Извлечение данных DB из списка и добавление в json
                 extractDataFromList(requestList);
-                criterion.put("results",results);
+                criterion.put("results", results);
                 customersList.add(criterion); // add full obj criterion
             }
             // if Request #2
-            if (JsonReader.criteriaList.get(i).getClass().equals(RequestTwo.class)){
+            if (JsonReader.criteriaList.get(i).getClass().equals(RequestTwo.class)) {
                 newJsonObjects();
                 // from json input
-                String productName = ((RequestTwo)JsonReader.criteriaList.get(i)).getProductName();
-                int minTimes = ((RequestTwo)JsonReader.criteriaList.get(i)).getMinTimes();
-                criteriaArr.put("productName",productName);
-                criteriaArr.put("minTimes",minTimes);
-                criterion.put("crtiteria",criteriaArr); // "criteria": {"productName": "Минеральная вода", "minTimes": 5}
+                String productName = ((RequestTwo) JsonReader.criteriaList.get(i)).getProductName();
+                int minTimes = ((RequestTwo) JsonReader.criteriaList.get(i)).getMinTimes();
+                criteriaArr.put("productName", productName);
+                criteriaArr.put("minTimes", minTimes);
+                criterion.put("crtiteria", criteriaArr); // "criteria": {"productName": "Минеральная вода", "minTimes": 5}
                 // получаем лист данных из запроса #2
-                List<RequestOne> requestList = RequestHandler.requestTwo(productName,minTimes);
+                List<RequestOne> requestList = RequestHandler.requestTwo(productName, minTimes);
                 // Извлечение данных DB из списка и добавление в json
                 extractDataFromList(requestList);
-                criterion.put("results",results);
+                criterion.put("results", results);
                 customersList.add(criterion); // add full obj criterion
             }
             // if Request #3
-            if (JsonReader.criteriaList.get(i).getClass().equals(RequestThree.class)){
+            if (JsonReader.criteriaList.get(i).getClass().equals(RequestThree.class)) {
                 newJsonObjects();
-                int minExpenses = ((RequestThree)JsonReader.criteriaList.get(i)).getMinExpenses();
-                int maxExpenses = ((RequestThree)JsonReader.criteriaList.get(i)).getMaxExpenses();
-                criteriaArr.put("minExpenses",minExpenses);
-                criteriaArr.put("maxExpenses",maxExpenses);
-                criterion.put("crtiteria",criteriaArr); // "criteria": {"minExpenses": 112, "maxExpenses": 4000}
+                int minExpenses = ((RequestThree) JsonReader.criteriaList.get(i)).getMinExpenses();
+                int maxExpenses = ((RequestThree) JsonReader.criteriaList.get(i)).getMaxExpenses();
+                criteriaArr.put("minExpenses", minExpenses);
+                criteriaArr.put("maxExpenses", maxExpenses);
+                criterion.put("crtiteria", criteriaArr); // "criteria": {"minExpenses": 112, "maxExpenses": 4000}
                 // получаем лист данных из запроса #3
-                List<RequestOne> requestList = RequestHandler.requestThree(minExpenses,maxExpenses);
+                List<RequestOne> requestList = RequestHandler.requestThree(minExpenses, maxExpenses);
                 // Извлечение данных DB из списка и добавление в json
                 extractDataFromList(requestList);
-                criterion.put("results",results);
+                criterion.put("results", results);
                 customersList.add(criterion); // add full obj criterion
             }
             // if Request #4
-            if (JsonReader.criteriaList.get(i).getClass().equals(RequestFour.class)){
+            if (JsonReader.criteriaList.get(i).getClass().equals(RequestFour.class)) {
                 newJsonObjects();
-                int badCustomers = ((RequestFour)JsonReader.criteriaList.get(i)).getBadCustomers();
-                criteriaArr.put("badCustomers",badCustomers);
-                criterion.put("crtiteria",criteriaArr); // "criteria": {"badCustomers": 3}
+                int badCustomers = ((RequestFour) JsonReader.criteriaList.get(i)).getBadCustomers();
+                criteriaArr.put("badCustomers", badCustomers);
+                criterion.put("crtiteria", criteriaArr); // "criteria": {"badCustomers": 3}
                 // получаем лист данных из запроса #4
                 List<RequestOne> requestList = RequestHandler.requestFour(badCustomers);
                 // Извлечение данных DB из списка и добавление в json
                 extractDataFromList(requestList);
-                criterion.put("results",results);
+                criterion.put("results", results);
                 customersList.add(criterion); // add full obj criterion
             }
-            root.put("results",customersList); // добавили массив первого запроса в root
+            root.put("results", customersList); // добавили массив первого запроса в root
         }
 
         try {
@@ -109,20 +111,23 @@ public class JsonWriter {
             throw new RuntimeException(e);
         }
     }
-    private static void newJsonObjects(){
+
+    private static void newJsonObjects() {
         criteriaArr = new JSONObject();
         criterion = new JSONObject();
         results = new JSONArray();
     }
-    private static void extractDataFromList(List<RequestOne> requestList){
-        for(int j=0;j<requestList.size();j++) {
+
+    private static void extractDataFromList(List<RequestOne> requestList) {
+        for (int j = 0; j < requestList.size(); j++) {
             data = new JSONObject();
             data.put("lastName", requestList.get(j).getLastName());
             data.put("firstName", requestList.get(j).getFirstName());
             results.add(data);
         }
     }
-    public static void writeStatJson(String path){
+
+    public static void writeStatJson(String path) {
         JSONArray custromers = new JSONArray();
         JSONArray purchases = new JSONArray();
         JSONObject purchasesData = new JSONObject();
@@ -160,12 +165,12 @@ public class JsonWriter {
             }
             root.put("customers", custromers);
             root.put("totalExpenses", totalExpenses);
-            if(totalExpenses!=0) {
+            if (totalExpenses != 0) {
                 root.put("avgExpenses", (double) totalExpenses / customerList.size());
             } else {
                 root.put("avgExpenses", 0);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             JsonWriter.writeError("operation");
         }
         try {
@@ -175,39 +180,39 @@ public class JsonWriter {
         }
     }
 
-    public static void writeError(String typeError){
+    public static void writeError(String typeError) {
         rootError = new JSONObject();
-        root.put("type","error");
-        switch(typeError){
+        root.put("type", "error");
+        switch (typeError) {
             case "operation": {
-                root.put("message","Неверная операция");
+                root.put("message", "Неверная операция");
                 break;
             }
             case "jsonInput": {
-                root.put("message","Некорректное содержимое JSON-файла");
+                root.put("message", "Некорректное содержимое JSON-файла");
                 break;
             }
-            case "dateError" : {
-                root.put("message","Некорректный формат даты");
+            case "dateError": {
+                root.put("message", "Некорректный формат даты");
                 break;
             }
-            case "FileNotFoundException" : {
-                root.put("message","Неверный путь к файлу");
+            case "FileNotFoundException": {
+                root.put("message", "Неверный путь к файлу");
                 break;
             }
-            case "PSQLException" : {
-                root.put("message","Ошибка подключения к БД");
+            case "PSQLException": {
+                root.put("message", "Ошибка подключения к БД");
                 break;
             }
-            case "config.ini file is missing" : {
-                root.put("message","Отсутствует файл config.ini");
+            case "config.ini file is missing": {
+                root.put("message", "Отсутствует файл config.ini");
                 break;
             }
         }
         try {
             Files.write(Paths.get(path), root.toJSONString().getBytes());
             // Завершение программы после вывода ошибки
-            System. exit(0);
+            System.exit(0);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

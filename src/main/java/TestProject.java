@@ -3,15 +3,16 @@ import util.JsonReader;
 import util.JsonWriter;
 
 public class TestProject {
-    public static void main(String[] args){
-        String line1 = "stat"; String line2 = "input.json"; String line3 = "output.json";
-        JsonWriter.setPath(line3);
+    public static void main(String[] args) {
+        /*
+        args[0] - operation (search/stat)
+        args[1] - path to input (input.json)
+        args[1] - path to output (output.json)
+         */
+        JsonWriter.setPath(args[2]);
         ConnectionManager.openConnection();
-        JsonReader.read(line1,line2);
-        JsonWriter.write(line1);
+        JsonReader.read(args[0], args[1]);
+        JsonWriter.write(args[0]);
         ConnectionManager.closeConnection();
     }
 }
-
-//    javac Main.java
-//    java Main arg0 arg1 arg2

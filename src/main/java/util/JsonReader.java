@@ -5,11 +5,13 @@ import java.util.List;
 
 public class JsonReader {
     public static List<Object> criteriaList;
-    private JsonReader(){
+
+    private JsonReader() {
     }
-    public static void read(String operation,String path){
+
+    public static void read(String operation, String path) {
         criteriaList = new ArrayList<>();
-        JsonSimpleParser.parse(operation,path);
+        JsonSimpleParser.parse(operation, path);
     }
 
 }

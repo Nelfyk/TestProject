@@ -1,7 +1,5 @@
 package util;
 
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -17,7 +15,7 @@ public final class ConnectionManager {
     private static String DB_USER;
     private static String DB_PASSWORD;
 
-    private ConnectionManager(){
+    private ConnectionManager() {
     }
 
     public static void openConnection() {
@@ -25,28 +23,35 @@ public final class ConnectionManager {
         dbConnection = ConnectionManager.getDBConnection();
         RequestHandler.setDbConnection(dbConnection);
     }
-    public static Connection getDBConnection(){
-        try{
-            return DriverManager.getConnection(DB_CONNECTION,DB_USER,DB_PASSWORD);
-        } catch(SQLException e){
+
+    public static Connection getDBConnection() {
+        try {
+            return DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
+        } catch (SQLException e) {
             JsonWriter.writeError("PSQLException");
             return null;
         }
     }
-    public static void closeConnection(){
+
+    public static void closeConnection() {
         try {
             dbConnection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    private static void getConfigIni(){
-        try (InputStream input = Files.newInputStream(Paths.get("Config.ini"))) {
+
+    private static void getConfigIni() {
+        try (InputStream input = Files.newInputStream(Paths.get("classes/config.ini"))) {
             Properties prop = new Properties();
             // load a properties file
             prop.load(input);
             // get the property value
-            DB_CONNECTION = prop.getProperty("DB_CONNECTION");
+            String host = prop.getProperty("DB_HOST");
+            String port = prop.getProperty("DB_PORT");
+            String name = prop.getProperty("DB_NAME");
+
+            DB_CONNECTION = host + ":" + port + "/" + name;
             DB_USER = prop.getProperty("DB_USER");
             DB_PASSWORD = prop.getProperty("DB_PASSWORD");
         } catch (IOException e) {

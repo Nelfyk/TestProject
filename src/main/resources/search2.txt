@@ -1,0 +1,9 @@
+{
+	"criterias": [ 
+	    {"lastName": "Иванов"},
+		{"lastName": "Блок"},
+		{"lastName": "Букин"},
+		{"productName": "Сыр", "minTimes": 2},
+	    {"minExpenses": 1000, "maxExpenses": 1500}, 
+      ]
+}
