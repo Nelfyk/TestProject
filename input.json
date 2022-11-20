@@ -1,8 +1,0 @@
-{
-  "criterias": [
-    {"lastName": "Иванов"},
-    {"productName": "Пиво Жигулевское", "minTimes": 3},
-    {"minExpenses": 112, "maxExpenses": 1000},
-    {"badCustomers": 3}
-  ]
-}

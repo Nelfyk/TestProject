@@ -10,24 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da2deee8-6745-424b-8eaf-076390671c5d" name="Changes" comment="Create Project">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/TestProject_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.ini" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/input.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/TestProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TestProject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/ConnectionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/JsonReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/JsonReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/JsonSimpleParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/JsonSimpleParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/JsonWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/JsonWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/RequestHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tableDB.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
