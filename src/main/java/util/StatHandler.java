@@ -5,6 +5,7 @@ package util;
 import model.Customer;
 import model.Stat;
 
+import java.util.Collections;
 import java.util.List;
 
 public class StatHandler {
@@ -16,6 +17,12 @@ public class StatHandler {
         String endDate = ((Stat)JsonReader.criteriaList.get(0)).getEndDate();
         List<Customer> customerList = RequestHandler.statRequest(startDate,endDate);
 
+        for(Customer a: customerList){
+            System.out.println(a.toString());
+        }
+
+        System.out.println("--------------------");
+        Collections.sort(customerList,Customer.COMPARE_BY_TOTAL_EXPENSES);
         for(Customer a: customerList){
             System.out.println(a.toString());
         }

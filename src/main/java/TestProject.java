@@ -7,7 +7,7 @@ public class TestProject {
     public static void main(String[] args){
         RequestHandler.start();
         JsonReader.read();
-        JsonWriter.write();
+        JsonWriter.writeStatJson();
 
         ConnectionManager.closeConnection();
     }

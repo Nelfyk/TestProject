@@ -1,15 +1,13 @@
 package util;
 
-import model.RequestFour;
-import model.RequestOne;
-import model.RequestThree;
-import model.RequestTwo;
+import model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 
 public class JsonWriter {
@@ -22,12 +20,9 @@ public class JsonWriter {
 
     private JsonWriter(){
     }
-    public static void write(){
 
-
+    public static void writeSearch(){
         root.put("type", "search"); // Тип результата
-
-
         for(int i = 0; i<JsonReader.criteriaList.size(); i++){
             // if Request #1
             if (JsonReader.criteriaList.get(i).getClass().equals(RequestOne.class)){
@@ -110,4 +105,54 @@ public class JsonWriter {
             results.add(data);
         }
     }
+    public static void writeStatJson(){
+        JSONArray custromers = new JSONArray();
+        JSONArray purchases = new JSONArray();
+        JSONObject purchasesData = new JSONObject();
+
+        int totalExpenses = 0;
+        String startDate = ((Stat)JsonReader.criteriaList.get(0)).getStartDate();
+        String endDate = ((Stat)JsonReader.criteriaList.get(0)).getEndDate();
+        List<Customer> customerList = RequestHandler.statRequest(startDate,endDate);
+        // Сортировка по убыванию totalExpenses
+        Collections.sort(customerList,Customer.COMPARE_BY_TOTAL_EXPENSES);
+
+        for(Customer a: customerList){
+            System.out.println(a.toString());
+        }
+        // Запись в JSON
+        root.put("type", "stat");
+        root.put("totalDays", RequestHandler.getTotalDays(startDate,endDate));
+        // beginning
+        for(int i = 0; i<customerList.size();i++) {
+            data = new JSONObject();
+            purchases = new JSONArray();
+            data.put("name",customerList.get(i).getName());
+            for(int j = 0; j<customerList.get(i).getProductList().size();j++) {
+                purchasesData = new JSONObject();
+                // Поля продуктов
+                String productName = customerList.get(i).getProductList().get(j).getProductName();
+                int price = customerList.get(i).getProductList().get(j).getPrice();
+                //
+                purchasesData.put("name",productName);
+                purchasesData.put("expenses",price);
+
+                purchases.add(purchasesData);
+            }
+            data.put("purchases",purchases);
+            data.put("totalExpenses",customerList.get(i).getTotalExpenses());
+            totalExpenses+=customerList.get(i).getTotalExpenses();
+            custromers.add(data);
+        }
+        root.put("customers",custromers);
+        root.put("totalExpenses", totalExpenses);
+        root.put("avgExpenses", (double)totalExpenses/customerList.size());
+
+        try {
+            Files.write(Paths.get("output.json"), root.toJSONString().getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

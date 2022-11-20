@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Customer {
@@ -50,4 +51,11 @@ public class Customer {
                 ", totalExpenses=" + totalExpenses +
                 '}';
     }
+    // Сортировка листа по убыванаию totalExpenses
+    public static final Comparator<Customer> COMPARE_BY_TOTAL_EXPENSES = new Comparator<Customer>() {
+        @Override
+        public int compare(Customer lhs, Customer rhs) {
+            return rhs.getTotalExpenses() - lhs.getTotalExpenses();
+        }
+    };
 }
